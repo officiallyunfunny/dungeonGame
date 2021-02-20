@@ -25,7 +25,7 @@ public class PlayerMovement : NetworkBehaviour
     }
     
     [Client]
-    void Update()
+    void FixedUpdate()
     {
         if (!isLocalPlayer) return;
 
