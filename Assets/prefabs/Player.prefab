@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3347781219386383076}
   - component: {fileID: 3347781219386383079}
-  - component: {fileID: 7614769501388035080}
   - component: {fileID: -931964555542741963}
+  - component: {fileID: 7614769501388035080}
   - component: {fileID: 3530288520112830491}
-  - component: {fileID: 215692302072888481}
+  - component: {fileID: -5522572000709941118}
+  - component: {fileID: 570704696212230828}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -52,6 +53,24 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &-931964555542741963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347781219386383073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!114 &7614769501388035080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,24 +87,6 @@ MonoBehaviour:
   syncInterval: 0.1
   _playerSpeed: 7
   _playerRb: {fileID: 3530288520112830491}
---- !u!114 &-931964555542741963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3347781219386383073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 0
-  localPositionSensitivity: 0.1
-  localRotationSensitivity: 0.1
-  localScaleSensitivity: 0.1
 --- !u!50 &3530288520112830491
 Rigidbody2D:
   serializedVersion: 4
@@ -99,7 +100,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -107,7 +108,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &215692302072888481
+--- !u!61 &-5522572000709941118
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347781219386383073}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0024692714, y: -0.3703922}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.60985357, y: 1.0098771}
+  m_EdgeRadius: 0
+--- !u!114 &570704696212230828
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,10 +149,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   target: {fileID: 3530288520112830491}
-  clientAuthority: 0
+  clientAuthority: 1
   syncVelocity: 1
   clearVelocity: 0
-  velocitySensitivity: 0.1
+  velocitySensitivity: 0.01
   syncAngularVelocity: 1
   clearAngularVelocity: 0
   angularVelocitySensitivity: 0.1

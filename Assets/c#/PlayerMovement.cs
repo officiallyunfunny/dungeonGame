@@ -8,32 +8,36 @@ public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private float _playerSpeed;
     [SerializeField] private Rigidbody2D _playerRb;
+    private Vector2 _direction;
 
     private InputMaster _controls;
     
+    [Client]
     private void Start()
     {
+        if(!isLocalPlayer || !hasAuthority) return;
+        
         _controls = new InputMaster();
         _controls.Enable();
         
     }
 
     [Client]
+    private void Update()
+    {
+        if(!isLocalPlayer || !hasAuthority) return;
+        _direction = _controls.Player.movement.ReadValue<Vector2>();
+    }
+
+    [Client]
     private void FixedUpdate()
     {
-        if(!isLocalPlayer) return;
+        if(!isLocalPlayer || !hasAuthority) return;
 
-        Vector2 direction = _controls.Player.movement.ReadValue<Vector2>();
         
-        _playerRb.MovePosition(_playerRb.position + direction * _playerSpeed * Time.fixedDeltaTime);
-        
-        CmdMovePlayer(direction);
+        _playerRb.MovePosition(_playerRb.position + _direction * _playerSpeed * Time.fixedDeltaTime);
+
     }
 
-    [Command]
-    private void CmdMovePlayer(Vector2 direction)
-    {
-        _playerRb.MovePosition(_playerRb.position + direction * _playerSpeed * Time.fixedDeltaTime);
-    }
     
 }
