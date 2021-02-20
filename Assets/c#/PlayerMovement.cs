@@ -6,50 +6,31 @@ using UnityEngine;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    [SerializeField] private float _playerSpeed;
+    [SerializeField] private Rigidbody2D _playerRb;
 
-    public float speed = 5;
-    public InputMaster controls;
-    [SerializeField] private Animator _playerAnimator;
-
-
-    private void Awake()
-    {
-        controls = new InputMaster();
-    }
-    private void OnEnable()
-    {
-        controls.Enable();
-    }
+    private InputMaster _controls;
     
-    [Client]
-    void Update()
+    private void Start()
     {
-        if (!isLocalPlayer) return;
-
-        Vector2 movementInput = controls.Player.movement.ReadValue<Vector2>();
-        transform.position += (Vector3)movementInput.normalized * (Time.deltaTime * speed);
-
-        if (movementInput.x != 0 || movementInput.y != 0 )
-        {
-            _playerAnimator.SetBool("moving", true);
-            if (movementInput.x < 0)
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
-            else if (movementInput.x > 0)
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-        }
-        else
-        {
-            _playerAnimator.SetBool("moving", false);
-        }
-        
-        
+        _controls = new InputMaster();
+        _controls.Enable();
         
     }
 
+    [Client]
+    private void FixedUpdate()
+    {
+        if(!isLocalPlayer) return;
+        
+        
+        CmdMovePlayer(_controls.Player.movement.ReadValue<Vector2>());
+    }
 
+    [Command]
+    private void CmdMovePlayer(Vector2 direction)
+    {
+        _playerRb.MovePosition(_playerRb.position + direction * _playerSpeed * Time.fixedDeltaTime);
+    }
     
 }
