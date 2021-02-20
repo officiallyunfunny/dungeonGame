@@ -24,7 +24,9 @@ public class PlayerMovement : NetworkBehaviour
         if(!isLocalPlayer) return;
 
         Vector2 direction = _controls.Player.movement.ReadValue<Vector2>();
+        
         _playerRb.MovePosition(_playerRb.position + direction * _playerSpeed * Time.fixedDeltaTime);
+        
         CmdMovePlayer(direction);
     }
 
