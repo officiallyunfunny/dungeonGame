@@ -22,9 +22,10 @@ public class PlayerMovement : NetworkBehaviour
     private void FixedUpdate()
     {
         if(!isLocalPlayer) return;
-        
-        
-        CmdMovePlayer(_controls.Player.movement.ReadValue<Vector2>());
+
+        Vector2 direction = _controls.Player.movement.ReadValue<Vector2>();
+        _playerRb.MovePosition(_playerRb.position + direction * _playerSpeed * Time.fixedDeltaTime);
+        CmdMovePlayer(direction);
     }
 
     [Command]
