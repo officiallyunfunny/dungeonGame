@@ -10,15 +10,18 @@ public class PlayerMovement : NetworkBehaviour
     public float speed = 5;
     public InputMaster controls;
     [SerializeField] private Animator _playerAnimator;
+    [SerializeField] private Camera _playerCamera;
 
-
-    private void Awake()
+    [Client]
+    private void Start()
     {
+        if (!isLocalPlayer) return;
+        Camera.main.enabled = false;
+        _playerCamera.enabled = true;
         controls = new InputMaster();
-    }
-    private void OnEnable()
-    {
         controls.Enable();
+        
+        
     }
     
     [Client]
